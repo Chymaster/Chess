@@ -9,13 +9,13 @@ The programme is aiming to develop a full functioning program which allows Playe
 - Rules are written in functions, when input intendent to move a piece, program will select which rule to apply due to which type of piece it is.
 
 
-##Functions
+## Functions
 - chessboard():   Print the current chessboard. (Warning: chessboard() function is based on po and list cb, for best outcome and avoiding that the cb list haven't updates after a move, use fresh() to update changes.
 - move(4 digit intiger):   the move() function allows the player to make the move of piece, the first two digit is to define which piece the player intended to move, and the second two digit is to state where the player to move the piece to. All positions are written in (x,y)
 - test(): test() function is used as a debugging (cheating) tool, it can move which ever piece to whereever it could possibly be, ignoring the rules. To do this, simply redefine the piece's list and change the position. This function always end with fresh() and chessboard() to make sure the cb and chessboard are updated.
 
 
 
-##Current progress
+## Current progress
     The program has been built up to queen's rule, there is only black pawn's rule, knight's rule and king's rule to be finished. Takeover piece has been developed, but the piece that has been eaten is only change it's variable to [None,0,0,None], it still have position of (0,0), it is reasonable to fear it might interupt with rules and casing unexpected problem. Also round swaping and check mating is awaited to be done as well.
     
