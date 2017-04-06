@@ -118,6 +118,8 @@ def rule():
                     brule()
                 if state == 'n':
                     nrule()
+                if state == 'k':
+                    krule()
                 for l in possibility:
                     if l/100 == l - l / 100 * 100:
                         possibility.remove(l)
@@ -554,7 +556,6 @@ def brule():
     #include the take overs
 
 def nrule():
-    print('triggered')
     global possibility
     global takeover
     x = notation[0]
@@ -569,9 +570,31 @@ def nrule():
                     if abs(a- x) != abs(b - y):
                         L.append([a,b])
     for a in L:
-        if po(L[0],L[1],0) == '   ':
+
+        if po(a[0],a[1],0) == '   ':
             possibility.append(x*1000+y*100+a[0]*10+a[1])
-        elif po(L[0],L[1],0) in statestrlist(round):
+        elif po(a[0],a[1],0) in statestrlist(round):
+            possibility.append(x*1000+y*100+a[0]*10+a[1])
+            takeover.append(a[0]*10+a[1])
+        
+def krule():
+    global possibility
+    global takeover
+
+    x = notation[0]
+    y = notation[1]
+    L = []
+    L1 = (range(x-1,x+2))
+    L2 = (range(y-1,y+2))
+    for a in L1:
+        if a in range(1,9):
+            for b in L2:
+                if b in range(1,9):
+                    L.append([a,b])
+    for a in L:
+        if po(a[0],a[1],0) == '   ':
+            possibility.append(x*1000+y*100+a[0]*10+a[1])
+        elif po(a[0],a[1],0) in statestrlist(round):
             possibility.append(x*1000+y*100+a[0]*10+a[1])
             takeover.append(a[0]*10+a[1])
         
@@ -581,8 +604,8 @@ def nrule():
     
 
 def test():     #this is a test base
-    global rwk
-    rwk = ['rwk',4,4,'n']
+    global wk
+    wk = ['wk ',5,6,'k']
     fresh()
     chessboard()
     
