@@ -22,7 +22,8 @@ The programme is aiming to develop a full functioning program which allows Playe
 
 ## Current progress
 - The program has been built up to queen's rule, 
-- there is black pawn's rule, knight's rule and king's rule to be finished. 
+- (ALL FINISHED)there is black pawn's rule, knight's rule and king's rule to be finished. 
 - Takeover piece has been developed, but the piece that has been eaten is only change it's variable to [None,0,0,None], it still have position of (0,0), it is reasonable to fear it might interupt with rules and causing unexpected problem. 
 - Round swaping and check mating is awaited to be done as well.
-    
+- UPDATE 6-4-2017:      Finished king and knight rules
+- UPDATE 6-4-2017:      Fixing an error with
