@@ -79,8 +79,8 @@ global strwhite
 global strblack
 strwhite = ['lwr','lwk','lwb','wq','wk','rwb','rwk','rwr','wp1','wp2','wp3','wp4','wp5','wp6','wp7','wp8']
 strblack = ['lbr','lbk','lbb','bq','bk','rbb','rbk','rbr','bp1','bp2','bp3','bp4','bp5','bp6','bp7','bp8']
-def statestrlist(whichround):
-    if whichround == 'white':
+def statestrlist(whichround):  #Tool to define which pieces to eat
+    if whichround == 'white':       #generally reverse and return the opposite str list
         return strblack
     elif whichround == 'black':
         return strwhite
@@ -116,6 +116,8 @@ def rule():
                     qrule()
                 if state == 'b':
                     brule()
+                if state == 'n':
+                    nrule()
                 for l in possibility:
                     if l/100 == l - l / 100 * 100:
                         possibility.remove(l)
@@ -368,6 +370,7 @@ def qrule():   # the new queen rule based on rook
     global possibility
     global takeover
 
+#This is vertical and horizontal line
     L = [0,9]   
     x = notation[0]
     y = notation[1]
@@ -480,8 +483,6 @@ def qrule():   # the new queen rule based on rook
         possibility.append(x*1000+y*100+list_of_existing_piece[list_of_existing_piece.index([x,y])-1][0]*10+list_of_existing_piece[list_of_existing_piece.index([x,y])-1][1])
     #include the take overs
 
-#it's not finished
-
 def brule():
     global legal
     global possibility
@@ -552,12 +553,36 @@ def brule():
         possibility.append(x*1000+y*100+list_of_existing_piece[list_of_existing_piece.index([x,y])-1][0]*10+list_of_existing_piece[list_of_existing_piece.index([x,y])-1][1])
     #include the take overs
 
+def nrule():
+    print('triggered')
+    global possibility
+    global takeover
+    x = notation[0]
+    y = notation[1]
+    L = []
+    L1 = [notation[0]+1,notation[0]-1,notation[0]+2,notation[0]-2]
+    L2 = [notation[1]+1,notation[1]-1,notation[1]+2,notation[1]-2]
+    for a in L1:
+        if a in range(1,9):
+            for b in L2:
+                if b in range(1,9):
+                    if abs(a- x) != abs(b - y):
+                        L.append([a,b])
+    for a in L:
+        if po(L[0],L[1],0) == '   ':
+            possibility.append(x*1000+y*100+a[0]*10+a[1])
+        elif po(L[0],L[1],0) in statestrlist(round):
+            possibility.append(x*1000+y*100+a[0]*10+a[1])
+            takeover.append(a[0]*10+a[1])
+        
 
+                
+    
     
 
 def test():     #this is a test base
-    global wq
-    wq = ['wq ',4,4,'q']
+    global rwk
+    rwk = ['rwk',4,4,'n']
     fresh()
     chessboard()
     
