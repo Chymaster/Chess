@@ -15,6 +15,10 @@ The programme is aiming to develop a full functioning program which allows Playe
 - test(): test() function is used as a debugging (cheating) tool, it can move which ever piece to whereever it could possibly be, ignoring the rules. To do this, simply redefine the piece's list and change the position. This function always end with fresh() and chessboard() to make sure the cb and chessboard are updated.
 
 
+## Pieces Rules
+### Knight
+- There is only maximum 8 possible movements a knight can possibly acchieve, so exhaustion should be able to achieve it with least time.
+- Is it possible like all rules are layed out, that a knight's rule ca be componded into a function, and at every possibility, it calls that function to check if it's a legal move, because every checing is homogenised.
 
 ## Current progress
 - The program has been built up to queen's rule, 
