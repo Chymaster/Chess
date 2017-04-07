@@ -4,6 +4,8 @@ global round
 round = 'white'
 global possibility
 possibility = []
+global fin
+fin = False
 global takeover
 takeover = []
 global state
@@ -85,6 +87,25 @@ def statestrlist(whichround):  #Tool to define which pieces to eat
     elif whichround == 'black':
         return strwhite
 
+
+def po(x,y,s):      #po is the def for position in chessboard, returns piece or blank
+    global cb
+    for i in cb:
+        if i[1] == x and i[2] == y:
+            return i[s]
+    return '   '
+
+def chessboard():
+    print(po(1,8,0),po(2,8,0),po(3,8,0),po(4,8,0),po(5,8,0),po(6,8,0),po(7,8,0),po(8,8,0))
+    print(po(1,7,0),po(2,7,0),po(3,7,0),po(4,7,0),po(5,7,0),po(6,7,0),po(7,7,0),po(8,7,0))
+    print(po(1,6,0),po(2,6,0),po(3,6,0),po(4,6,0),po(5,6,0),po(6,6,0),po(7,6,0),po(8,6,0))
+    print(po(1,5,0),po(2,5,0),po(3,5,0),po(4,5,0),po(5,5,0),po(6,5,0),po(7,5,0),po(8,5,0))
+    print(po(1,4,0),po(2,4,0),po(3,4,0),po(4,4,0),po(5,4,0),po(6,4,0),po(7,4,0),po(8,4,0))
+    print(po(1,3,0),po(2,3,0),po(3,3,0),po(4,3,0),po(5,3,0),po(6,3,0),po(7,3,0),po(8,3,0))
+    print(po(1,2,0),po(2,2,0),po(3,2,0),po(4,2,0),po(5,2,0),po(6,2,0),po(7,2,0),po(8,2,0))
+    print(po(1,1,0),po(2,1,0),po(3,1,0),po(4,1,0),po(5,1,0),po(6,1,0),po(7,1,0),po(8,1,0))
+    print('\n')
+
 def fresh():
     global cb
     global white
@@ -94,6 +115,7 @@ def fresh():
     strwhite = ['lwr','lwk','lwb','wq','wk','rwb','rwk','rwr','wp1','wp2','wp3','wp4','wp5','wp6','wp7','wp8']
     black = [lbr,lbk,lbb,bq,bk,rbb,rbk,rbr,bp1,bp2,bp3,bp4,bp5,bp6,bp7,bp8]
     strblack = ['lbr','lbk','lbb','bq','bk','rbb','rbk','rbr','bp1','bp2','bp3','bp4','bp5','bp6','bp7','bp8']
+    chessboard()
 fresh()
 def rule():
     global possibility
@@ -124,16 +146,14 @@ def rule():
                     if l/100 == l - l / 100 * 100:
                         possibility.remove(l)
                 print(possibility)
-                print(notation[0]*1000+notation[1]*100+notation[2]*10+notation[3])
+                #print(notation[0]*1000+notation[1]*100+notation[2]*10+notation[3])
                 if notation[0]*1000+notation[1]*100+notation[2]*10+notation[3] in possibility:
                     print('legal move')
                     print(takeover)
                     if notation[2]*10+notation[3] in takeover:
-                        print('triggered')
                         takenover = po(notation[2],notation[3],0)
-                        print(takenover)
                         exec('globals()[%r] = [None,0,0,None]'%takenover)
-                        print(globals()[takenover])
+                        #print(globals()[takenover])
                         fresh()
                     if i[0] == 'lwr':
                         lwr[1] = notation[2]
@@ -187,6 +207,7 @@ def rule():
                         wp8[1] = notation[2]
                         wp8[2] = notation[3]
                     fresh()
+                    round = 'black'
                 else:
                     print('Illegal move,, please check')
     elif round == 'black':
@@ -200,17 +221,24 @@ def rule():
                     rrule()
                 if state == 'q':
                     qrule()
-
+                if state == 'b':
+                    brule()
+                if state == 'n':
+                    nrule()
+                if state == 'k':
+                    krule()
                 for l in possibility:
                     if l/100 == l - l / 100 * 100:
                         possibility.remove(l)
+                print(possibility)
                 if notation[0]*1000+notation[1]*100+notation[2]*10+notation[3] in possibility:
+                    print('legal move')
                     if notation[2]*10+notation[3] in takeover: # takeover part for black
-                        print('triggered')
+                        #print('triggered')
                         takenover = po(notation[2],notation[3],0)
-                        print(takenover)
+                        #print(takenover)
                         exec('globals()[%r] = [None,0,0,None]'%takenover)
-                        print(globals()[takenover])
+                        #print(globals()[takenover])
                         fresh()
                     if i[0] == 'lbr':
                         lbr[1] = notation[2]
@@ -264,6 +292,7 @@ def rule():
                         bp8[1] = notation[2]
                         bp8[2] = notation[3]
                     fresh()
+                    round = 'white'
                 else:
                     print('illegal move')
 
@@ -273,21 +302,6 @@ def move(x):
     notation = [int(i) for i in str(x)]
     rule()
     
-def po(x,y,s):      #po is the def for position in chessboard, returns piece or blank
-    global cb
-    for i in cb:
-        if i[1] == x and i[2] == y:
-            return i[s]
-    return '   '
-def chessboard():
-    print(po(1,8,0),po(2,8,0),po(3,8,0),po(4,8,0),po(5,8,0),po(6,8,0),po(7,8,0),po(8,8,0))
-    print(po(1,7,0),po(2,7,0),po(3,7,0),po(4,7,0),po(5,7,0),po(6,7,0),po(7,7,0),po(8,7,0))
-    print(po(1,6,0),po(2,6,0),po(3,6,0),po(4,6,0),po(5,6,0),po(6,6,0),po(7,6,0),po(8,6,0))
-    print(po(1,5,0),po(2,5,0),po(3,5,0),po(4,5,0),po(5,5,0),po(6,5,0),po(7,5,0),po(8,5,0))
-    print(po(1,4,0),po(2,4,0),po(3,4,0),po(4,4,0),po(5,4,0),po(6,4,0),po(7,4,0),po(8,4,0))
-    print(po(1,3,0),po(2,3,0),po(3,3,0),po(4,3,0),po(5,3,0),po(6,3,0),po(7,3,0),po(8,3,0))
-    print(po(1,2,0),po(2,2,0),po(3,2,0),po(4,2,0),po(5,2,0),po(6,2,0),po(7,2,0),po(8,2,0))
-    print(po(1,1,0),po(2,1,0),po(3,1,0),po(4,1,0),po(5,1,0),po(6,1,0),po(7,1,0),po(8,1,0))
 def wpawnrule():
     global legal
     global possibility
@@ -299,11 +313,14 @@ def wpawnrule():
         possibility.append(notation[0]*1000+notation[1]*100+notation[0]*10 + notation[1] + 2)
     if po(notation[0]-1,notation[1] + 1,0) in strblack:
         possibility.append(notation[0]*1000+notation[1]*100+(notation[0]-1)*10 + notation[1] + 1)
-        takeove.append((notation[0]-1)*10 + notation[1] + 1)
+        takeover.append((notation[0]-1)*10 + notation[1] + 1)
     if po(notation[0]+1,notation[1] + 1,0) in strblack:
         possibility.append(notation[0]*1000+notation[1]*100+(notation[0]+1)*10 + notation[1] + 1)
         takeover.append((notation[0]+1)*10 + notation[1] + 1)
-    print(possibility)
+    if (notation[0]*1000+notation[1]*100+notation[2]*10+notation[3]) in possibility:
+        if notation[3] == 8:
+            exec("globals()[%r][3] = ['q']"%po(notation[0],notation[1],0))
+    #print(possibility)
 def bpawnrule():
     global legal
     global possibility
@@ -315,11 +332,14 @@ def bpawnrule():
         possibility.append(notation[0]*1000+notation[1]*100+notation[0]*10 + notation[1] - 2)
     if po(notation[0]-1,notation[1] - 1,0) in strwhite:    #takeover
         possibility.append(notation[0]*1000+notation[1]*100+(notation[0]-1)*10 + notation[1] - 1)
-        takeove.append((notation[0]-1)*10 + notation[1] - 1)
+        takeover.append((notation[0]-1)*10 + notation[1] - 1)
     if po(notation[0]+1,notation[1] - 1,0) in strwhite:     #takeover
         possibility.append(notation[0]*1000+notation[1]*100+(notation[0]+1)*10 + notation[1] - 1)
         takeover.append((notation[0]+1)*10 + notation[1] - 1)
-    print(possibility)
+    if (notation[0]*1000+notation[1]*100+notation[2]*10+notation[3]) in possibility:
+        if notation[3] == 1:
+            exec("globals()[%r][3] = ['q']"%po(notation[0],notation[1],0))
+    #print(possibility)
 def rrule():
     global legal
     global possibility
@@ -332,8 +352,8 @@ def rrule():
         if i[2] == y:
             L.append(i[1]) # all notation in y = i[2] line (seen position 0 and 9 as a piece to block out)
     L.sort()
-    print(L)
-    print(L[L.index(x)-1])
+    #print(L)
+    #print(L[L.index(x)-1])
     Lx=range(int(L[L.index(x)-1]),int(L[L.index(x)+1]))
     Lx.pop(0)
     for a in Lx:
@@ -350,15 +370,15 @@ def rrule():
         if i[1] == x:
             L.append(i[2])
     L.sort()
-    print(L)
+    #print(L)
     Ly=range(int(L[L.index(y)-1]),int(L[L.index(y)+1]))
     Ly.pop(0)
     for a in Ly:
         possibility.append(notation[0]*1000+notation[1]*100+x*10+a)
-    print(int(L[L.index(y)-1]))
-    print(y)
+    #print(int(L[L.index(y)-1]))
+    #print(y)
     po(x,int(L[L.index(y)-1]),0)
-    print(statestrlist(round))
+    #print(statestrlist(round))
     if po(x,int(L[L.index(y)-1]),0) in statestrlist(round):
         possibility.append(notation[0]*1000+notation[1]*100+x*10+int(L[L.index(y)-1]))
         takeover.append(x*10+int(L[L.index(y)-1]))
@@ -380,8 +400,8 @@ def qrule():   # the new queen rule based on rook
         if i[2] == y:
             L.append(i[1])
     L.sort()
-    print(L)
-    print(L[L.index(x)-1])
+    #print(L)
+    #print(L[L.index(x)-1])
     Lx=range(int(L[L.index(x)-1]),int(L[L.index(x)+1]))
     Lx.pop(0)
     for a in Lx:
@@ -399,15 +419,15 @@ def qrule():   # the new queen rule based on rook
         if i[1] == x:
             L.append(i[2])
     L.sort()
-    print(L)
+    #print(L)
     Ly=range(int(L[L.index(y)-1]),int(L[L.index(y)+1]))
     Ly.pop(0)
     for a in Ly:
         possibility.append(notation[0]*1000+notation[1]*100+x*10+a)
-    print(int(L[L.index(y)-1]))
-    print(y)
+    #print(int(L[L.index(y)-1]))
+    #print(y)
     po(x,int(L[L.index(y)-1]),0)
-    print(statestrlist(round))
+    #print(statestrlist(round))
     if po(x,int(L[L.index(y)-1]),0) in statestrlist(round):
         possibility.append(notation[0]*1000+notation[1]*100+x*10+int(L[L.index(y)-1]))
         takeover.append(x*10+int(L[L.index(y)-1]))       
@@ -422,14 +442,20 @@ def qrule():   # the new queen rule based on rook
     y = notation[1]
     c = y + x                         #in chessboard:
     #downwards
-    L = []
+    if c >= 9:
+        L = [[c-9,9],[9,c-9]]
+    elif c <= 7:
+        L = [[0,c],[c,0]]
+    elif c == 8:
+        L = [[0,9],[9,0]]
     for i in range(1,9):
        #the biggest of possible x is 8
         #x and y can't be bigger than 8 and smaller than 1
         if max(i,-i+c)<= 8 and min(i,-i+c)>=1:
             L.append([i,-i+c])
+    L.sort()
     if c >= 9:
-        list_of_existing_piece = [[c-8,9],[9,c-8]]
+        list_of_existing_piece = [[c-9,9],[9,c-9]]
     elif c <= 7:
         list_of_existing_piece = [[0,c],[c,0]]
     elif c == 8:
@@ -451,16 +477,23 @@ def qrule():   # the new queen rule based on rook
         takeover.append(list_of_existing_piece[list_of_existing_piece.index([x,y])-1][0]*10+list_of_existing_piece[list_of_existing_piece.index([x,y])-1][1])
         possibility.append(x*1000+y*100+list_of_existing_piece[list_of_existing_piece.index([x,y])-1][0]*10+list_of_existing_piece[list_of_existing_piece.index([x,y])-1][1])
     #include the take overs
-    print(possibility)
+    #print(possibility)
 
 ##upward
     L=[]
     c = y - x
+    if c <= -1:
+        L = [[-c,0],[9,9-c]]
+    elif c >= 1:
+        L = [[0,c],[9-c,9]]
+    elif c == 0:
+        L = [[0,0],[9,9]]
     for i in range(1,9):
         if max(i,i+c)<=8 and min(i,i+c)>=1:
             L.append([i,i+c])
+    L.sort()
     if c <= -1:
-        list_of_existing_piece = [[c,0],[9,9-c]]
+        list_of_existing_piece = [[-c,0],[9,9-c]]
     elif c >= 1:
         list_of_existing_piece = [[0,c],[9-c,9]]
     elif c == 0:
@@ -473,7 +506,7 @@ def qrule():   # the new queen rule based on rook
     for a in range(L.index(list_of_existing_piece[list_of_existing_piece.index([x,y])-1])+1,L.index(list_of_existing_piece[list_of_existing_piece.index([x,y])+1])):
         moving_range.append(L[a])
     #possibility.append(x*1000+y*100+a[0]*10+a[1]) for a in moving_range)
-    print(moving_range)
+    #print(moving_range)
     for a in moving_range:
         possibility.append(x*1000+y*100+a[0]*10+a[1]) 
     #all in range possibilities
@@ -489,19 +522,27 @@ def brule():
     global legal
     global possibility
     global takeover
+    
 
     x = notation[0]
     y = notation[1]
     c = y + x                         #in chessboard:
     #downwards
-    L = []
+    if c >= 9:
+        L = [[c-9,9],[9,c-9]]
+    elif c <= 7:
+        L = [[0,c],[c,0]]
+    elif c == 8:
+        L = [[0,9],[9,0]]
     for i in range(1,9):
        #the biggest of possible x is 8
         #x and y can't be bigger than 8 and smaller than 1
         if max(i,-i+c)<= 8 and min(i,-i+c)>=1:
             L.append([i,-i+c])
+    L.sort()
+    print(L)
     if c >= 9:
-        list_of_existing_piece = [[c-8,9],[9,c-8]]
+        list_of_existing_piece = [[c-9,9],[9,c-9]]
     elif c <= 7:
         list_of_existing_piece = [[0,c],[c,0]]
     elif c == 8:
@@ -510,6 +551,7 @@ def brule():
         if i[1] + i[2] == c:
             list_of_existing_piece.append([i[1],i[2]])
     list_of_existing_piece.sort()
+    print(list_of_existing_piece,'lofp')
     moving_range = []
     for a in range(L.index(list_of_existing_piece[list_of_existing_piece.index([x,y])-1])+1,L.index(list_of_existing_piece[list_of_existing_piece.index([x,y])+1])):
         moving_range.append(L[a])
@@ -525,13 +567,20 @@ def brule():
     #include the take overs
 
 ##upward
-    L=[]
     c = y - x
+    if c <= -1:
+        L = [[-c,0],[9,9+c]]
+    elif c >= 1:
+        L = [[0,c],[9-c,9]]
+    elif c == 0:
+        L = [[0,0],[9,9]]
     for i in range(1,9):
         if max(i,i+c)<=8 and min(i,i+c)>=1:
             L.append([i,i+c])
+    L.sort()
+    #print(L)
     if c <= -1:
-        list_of_existing_piece = [[c,0],[9,9-c]]
+        list_of_existing_piece = [[-c,0],[9,9+c]]
     elif c >= 1:
         list_of_existing_piece = [[0,c],[9-c,9]]
     elif c == 0:
@@ -604,12 +653,17 @@ def krule():
     
 
 def test():     #this is a test base
-    global wk
-    wk = ['wk ',5,6,'k']
-    fresh()
-    chessboard()
-    
+    global wp4
+    wp4 = ['wp4',4,6,'wp']
 
+    fresh()
+    move(4657)
+    move(1715)
+    move(5768)
+    print wp4
+    
+#while fin == False:
+    
         
         
         
