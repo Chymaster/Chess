@@ -1,86 +1,88 @@
-global legal
-legal = None
-global round
-round = 'white'
-global possibility
-possibility = []
-global fin
-fin = False
-global takeover
-takeover = []
-global state
-state = None
-global mpiece
-mpiece = None
-global lbr   #each list is one piece in format
-lbr = ['lbr',1,8,'r']   #piecename = ['piecename', position(x-axis),position(y-axis),'piecetype']
-global lbk
-lbk = ['lbk',2,8,'n']       #points:
-global lbb
-lbb = ['lbb',3,8,'b']       #pawn in white side and black side have different moving ways, so they have to be identified
-global bq
-bq = ['bq ',4,8,'q']         #mpiece is the variable that indicates which piece is moving, it's the index number in white/black
-global bk
-bk = ['bk ',5,8,'k']         #
-global rbb
-rbb = ['rbb',6,8,'b']       #
-global rbk
-rbk = ['rbk',7,8,'n']
-global rbr
-rbr = ['rbr',8,8,'r']
-global bp8
-bp1 = ['bp1',1,7,'bp']
-global bp7
-bp2 = ['bp2',2,7,'bp']
-global bp3
-bp3 = ['bp3',3,7,'bp']
-global bp4
-bp4 = ['bp4',4,7,'bp']
-global bp5
-bp5 = ['bp5',5,7,'bp']
-global bp6
-bp6 = ['bp6',6,7,'bp']
-global bp7
-bp7 = ['bp7',7,7,'bp']
-global bp8
-bp8 = ['bp8',8,7,'bp']
+global record
+record = []
+def start():
+    global legal
+    legal = None
+    global round
+    round = 'white'
+    global possibility
+    possibility = []
+    global takeover
+    takeover = []
+    global state
+    state = None
+    global mpiece
+    mpiece = None
+    global lbr   #each list is one piece in format
+    lbr = ['lbr',1,8,'r']   #piecename = ['piecename', position(x-axis),position(y-axis),'piecetype']
+    global lbk
+    lbk = ['lbk',2,8,'n']       #points:
+    global lbb
+    lbb = ['lbb',3,8,'b']       #pawn in white side and black side have different moving ways, so they have to be identified
+    global bq
+    bq = ['bq ',4,8,'q']         #mpiece is the variable that indicates which piece is moving, it's the index number in white/black
+    global bk
+    bk = ['bk ',5,8,'k']         #
+    global rbb
+    rbb = ['rbb',6,8,'b']       #
+    global rbk
+    rbk = ['rbk',7,8,'n']
+    global rbr
+    rbr = ['rbr',8,8,'r']
+    global bp1
+    bp1 = ['bp1',1,7,'bp']
+    global bp2
+    bp2 = ['bp2',2,7,'bp']
+    global bp3
+    bp3 = ['bp3',3,7,'bp']
+    global bp4
+    bp4 = ['bp4',4,7,'bp']
+    global bp5
+    bp5 = ['bp5',5,7,'bp']
+    global bp6
+    bp6 = ['bp6',6,7,'bp']
+    global bp7
+    bp7 = ['bp7',7,7,'bp']
+    global bp8
+    bp8 = ['bp8',8,7,'bp']
 
-global lwr
-lwr = ['lwr',1,1,'r']
-global lwk
-lwk = ['lwk',2,1,'n']
-global lwb
-lwb = ['lwb',3,1,'b']
-global wq
-wq = ['wq ',4,1,'q']
-global wk
-wk = ['wk ',5,1,'k']
-global rwb
-rwb = ['rwb',6,1,'b']
-global rwk
-rwk = ['rwk',7,1,'n']
-global rwr
-rwr = ['rwr',8,1,'r']
-global wp1
-wp1 = ['wp1',1,2,'wp']
-global wp2
-wp2 = ['wp2',2,2,'wp']
-global wp3
-wp3 = ['wp3',3,2,'wp']
-global wp4
-wp4 = ['wp4',4,2,'wp']
-global wp5
-wp5 = ['wp5',5,2,'wp']
-global wp6
-wp6 = ['wp6',6,2,'wp']
-global wp7
-wp7 = ['wp7',7,2,'wp']
-global wp8
-wp8 = ['wp8',8,2,'wp']
-global strwhite
-global strblack
-strwhite = ['lwr','lwk','lwb','wq','wk','rwb','rwk','rwr','wp1','wp2','wp3','wp4','wp5','wp6','wp7','wp8']
-strblack = ['lbr','lbk','lbb','bq','bk','rbb','rbk','rbr','bp1','bp2','bp3','bp4','bp5','bp6','bp7','bp8']
+    global lwr
+    lwr = ['lwr',1,1,'r']
+    global lwk
+    lwk = ['lwk',2,1,'n']
+    global lwb
+    lwb = ['lwb',3,1,'b']
+    global wq
+    wq = ['wq ',4,1,'q']
+    global wk
+    wk = ['wk ',5,1,'k']
+    global rwb
+    rwb = ['rwb',6,1,'b']
+    global rwk
+    rwk = ['rwk',7,1,'n']
+    global rwr
+    rwr = ['rwr',8,1,'r']
+    global wp1
+    wp1 = ['wp1',1,2,'wp']
+    global wp2
+    wp2 = ['wp2',2,2,'wp']
+    global wp3
+    wp3 = ['wp3',3,2,'wp']
+    global wp4
+    wp4 = ['wp4',4,2,'wp']
+    global wp5
+    wp5 = ['wp5',5,2,'wp']
+    global wp6
+    wp6 = ['wp6',6,2,'wp']
+    global wp7
+    wp7 = ['wp7',7,2,'wp']
+    global wp8
+    wp8 = ['wp8',8,2,'wp']
+    global strwhite
+    global strblack
+    strwhite = ['lwr','lwk','lwb','wq ','wk ','rwb','rwk','rwr','wp1','wp2','wp3','wp4','wp5','wp6','wp7','wp8']
+    strblack = ['lbr','lbk','lbb','bq ','bk ','rbb','rbk','rbr','bp1','bp2','bp3','bp4','bp5','bp6','bp7','bp8']
+start()
 def statestrlist(whichround):  #Tool to define which pieces to eat
     if whichround == 'white':       #generally reverse and return the opposite str list
         return strblack
@@ -104,6 +106,7 @@ def chessboard():
     print(po(1,3,0),po(2,3,0),po(3,3,0),po(4,3,0),po(5,3,0),po(6,3,0),po(7,3,0),po(8,3,0))
     print(po(1,2,0),po(2,2,0),po(3,2,0),po(4,2,0),po(5,2,0),po(6,2,0),po(7,2,0),po(8,2,0))
     print(po(1,1,0),po(2,1,0),po(3,1,0),po(4,1,0),po(5,1,0),po(6,1,0),po(7,1,0),po(8,1,0))
+    print(round)
     print('\n')
 
 def fresh():
@@ -112,9 +115,9 @@ def fresh():
     global black
     cb = [lwr,lwk,lwb,wq,wk,rwb,rwk,rwr,wp1,wp2,wp3,wp4,wp5,wp6,wp7,wp8,lbr,lbk,lbb,bq,bk,rbb,rbk,rbr,bp1,bp2,bp3,bp4,bp5,bp6,bp7,bp8]
     white = [lwr,lwk,lwb,wq,wk,rwb,rwk,rwr,wp1,wp2,wp3,wp4,wp5,wp6,wp7,wp8]
-    strwhite = ['lwr','lwk','lwb','wq','wk','rwb','rwk','rwr','wp1','wp2','wp3','wp4','wp5','wp6','wp7','wp8']
+    strwhite = ['lwr','lwk','lwb','wq ','wk ','rwb','rwk','rwr','wp1','wp2','wp3','wp4','wp5','wp6','wp7','wp8']
     black = [lbr,lbk,lbb,bq,bk,rbb,rbk,rbr,bp1,bp2,bp3,bp4,bp5,bp6,bp7,bp8]
-    strblack = ['lbr','lbk','lbb','bq','bk','rbb','rbk','rbr','bp1','bp2','bp3','bp4','bp5','bp6','bp7','bp8']
+    strblack = ['lbr','lbk','lbb','bq ','bk ','rbb','rbk','rbr','bp1','bp2','bp3','bp4','bp5','bp6','bp7','bp8']
     chessboard()
 fresh()
 def rule():
@@ -150,8 +153,13 @@ def rule():
                 if notation[0]*1000+notation[1]*100+notation[2]*10+notation[3] in possibility:
                     print('legal move')
                     print(takeover)
+                    record.append('move(%r)'%str(notation[0]*1000+notation[1]*100+notation[2]*10+notation[3]))
                     if notation[2]*10+notation[3] in takeover:
                         takenover = po(notation[2],notation[3],0)
+                        if takenover == 'bk ':
+                            takenover = 'bk'
+                        elif takenover == 'bq ':
+                            takenover = 'bq'
                         exec('globals()[%r] = [None,0,0,None]'%takenover)
                         #print(globals()[takenover])
                         fresh()
@@ -233,9 +241,14 @@ def rule():
                 print(possibility)
                 if notation[0]*1000+notation[1]*100+notation[2]*10+notation[3] in possibility:
                     print('legal move')
+                    record.append('move(%r)'%str(notation[0]*1000+notation[1]*100+notation[2]*10+notation[3]))
                     if notation[2]*10+notation[3] in takeover: # takeover part for black
                         #print('triggered')
                         takenover = po(notation[2],notation[3],0)
+                        if takenover == 'wk ':
+                            takenover = 'wk'
+                        elif takenover == 'wq ':
+                            takenover = 'wq'
                         #print(takenover)
                         exec('globals()[%r] = [None,0,0,None]'%takenover)
                         #print(globals()[takenover])
@@ -295,7 +308,9 @@ def rule():
                     round = 'white'
                 else:
                     print('illegal move')
-
+    if wk == [None,0,0,None] or bk == [None,0,0,None]:
+        print('Game over, please start again')
+        start()
 def move(x):
     global notation
     global state
@@ -653,14 +668,16 @@ def krule():
     
 
 def test():     #this is a test base
-    global wp4
-    wp4 = ['wp4',4,6,'wp']
-
-    fresh()
-    move(4657)
+    move(1214)
     move(1715)
-    move(5768)
-    print wp4
+    move(1113)
+    move(1816)
+    move(1353)
+    move(1646)
+    move(5357)
+    move(4642)
+    move(5758)
+
     
 #while fin == False:
     
