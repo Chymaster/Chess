@@ -26,4 +26,7 @@ The programme is aiming to develop a full functioning program which allows Playe
 - Takeover piece has been developed, but the piece that has been eaten is only change it's variable to [None,0,0,None], it still have position of (0,0), it is reasonable to fear it might interupt with rules and causing unexpected problem. 
 - Round swaping and check mating is awaited to be done as well.
 - UPDATE 6-4-2017:      Finished king and knight rules
-- UPDATE 6-4-2017:      Fixing an error with
+- UPDATE 6-4-2017:      Fixing an error with spelling
+- UPDATE 10-4-2017:     Fixing an error with when king or queen are taken over, their [0] is 'bk ' with space but their variable name doesn't have the variable name.
+- UPDATE 10-4-2017:     Game now can finish when either side of king is taken.
+- UPDATE 10-4-2017:     Added list 'record', that record every movement made my 'move(4digit movement)', it's executable by execrecord[?]
