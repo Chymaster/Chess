@@ -30,3 +30,4 @@ The programme is aiming to develop a full functioning program which allows Playe
 - UPDATE 10-4-2017:     Fixing an error with when king or queen are taken over, their [0] is 'bk ' with space but their variable name doesn't have the variable name.
 - UPDATE 10-4-2017:     Game now can finish when either side of king is taken.
 - UPDATE 10-4-2017:     Added list 'record', that record every movement made my 'move(4digit movement)', it's executable by execrecord[?]
+- UPDATE 11-4-2017：    Chess playing program is tested briefly proving it works, now aiming for AI playing chess.
