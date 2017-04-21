@@ -1,3 +1,4 @@
+import random
 global record
 record = []
 def start():
@@ -118,7 +119,6 @@ def fresh():
     strwhite = ['lwr','lwk','lwb','wq ','wk ','rwb','rwk','rwr','wp1','wp2','wp3','wp4','wp5','wp6','wp7','wp8']
     black = [lbr,lbk,lbb,bq,bk,rbb,rbk,rbr,bp1,bp2,bp3,bp4,bp5,bp6,bp7,bp8]
     strblack = ['lbr','lbk','lbb','bq ','bk ','rbb','rbk','rbr','bp1','bp2','bp3','bp4','bp5','bp6','bp7','bp8']
-    chessboard()
 fresh()
 def rule():
     global possibility
@@ -214,8 +214,9 @@ def rule():
                     elif i[0] == 'wp8':
                         wp8[1] = notation[2]
                         wp8[2] = notation[3]
-                    fresh()
                     round = 'black'
+                    fresh()
+                    chessboard()
                 else:
                     print('Illegal move,, please check')
     elif round == 'black':
@@ -223,6 +224,7 @@ def rule():
             if i[1] == notation[0] and i[2] == notation[1]:
                 state = i[3]
                 mpiece = black.index(i)
+                print(mpiece)
                 if state == 'bp':            #RULES  ADD HERE
                     bpawnrule()
                 if state == 'r':
@@ -252,7 +254,6 @@ def rule():
                         #print(takenover)
                         exec('globals()[%r] = [None,0,0,None]'%takenover)
                         #print(globals()[takenover])
-                        fresh()
                     if i[0] == 'lbr':
                         lbr[1] = notation[2]
                         lbr[2] = notation[3]
@@ -304,11 +305,13 @@ def rule():
                     elif i[0] == 'bp8':
                         bp8[1] = notation[2]
                         bp8[2] = notation[3]
-                    fresh()
                     round = 'white'
+                    fresh()
+                    chessboard()
                 else:
                     print('illegal move')
     if wk == [None,0,0,None] or bk == [None,0,0,None]:
+        print(''.join([round,' lost']))
         print('Game over, please start again')
         start()
 def move(x):
@@ -555,7 +558,6 @@ def brule():
         if max(i,-i+c)<= 8 and min(i,-i+c)>=1:
             L.append([i,-i+c])
     L.sort()
-    print(L)
     if c >= 9:
         list_of_existing_piece = [[c-9,9],[9,c-9]]
     elif c <= 7:
@@ -566,7 +568,6 @@ def brule():
         if i[1] + i[2] == c:
             list_of_existing_piece.append([i[1],i[2]])
     list_of_existing_piece.sort()
-    print(list_of_existing_piece,'lofp')
     moving_range = []
     for a in range(L.index(list_of_existing_piece[list_of_existing_piece.index([x,y])-1])+1,L.index(list_of_existing_piece[list_of_existing_piece.index([x,y])+1])):
         moving_range.append(L[a])
@@ -662,23 +663,121 @@ def krule():
             possibility.append(x*1000+y*100+a[0]*10+a[1])
             takeover.append(a[0]*10+a[1])
         
-
+def Score(piece):
+    if piece == 'wp':
+        return 1
+    elif piece == 'bp':
+        return 1
+    elif piece == 'n':
+        return 5
+    elif piece == 'r':
+        return 20
+    elif piece == 'b':
+        return 10
+    elif piece == 'q':
+        return 50
+    elif piece == 'k':
+        return 100
                 
-    
-    
+def AI():
+    global possibility
+    possibility = []
+    global notation
+    notation = [0,0,5,5]
+    global state
+    prior = []
+    global mpiece
+    global white
+    global black
+    global round
+    if round == 'white':
+        for i in white:
+            notation[0] = i[1]
+            notation[1] = i[2]
+            state = i[3]     #state shows which type of piece is moving
+            mpiece = i[0]    #mpiece shows which chess is moving
+            if state == 'wp':            #RULES  ADD HERE
+                wpawnrule()
+            if state == 'r':
+                rrule()
+            if state == 'q':
+                qrule()
+            if state == 'b':
+                brule()
+            if state == 'n':
+                nrule()
+            if state == 'k':
+                krule()
+            for l in possibility:
+                if l/100 == l - l / 100 * 100:
+                    possibility.remove(l)
+        prior = []
+        current_score = 0
+        for moves in possibility:
+            smoves = [int(a) for a in str(moves)]
+            if po(smoves[2],smoves[3],0) in strblack:
+                if int(current_score) < int(Score(po(smoves[2],smoves[3],3))):
+                    current_score = Score(po(smoves[2],smoves[3],3))
+                    prior = smoves
+                elif current_score == Score(po(smoves[2],smoves[3],3)):
+                    choice = random.randint(0,1)
+                    if choice == 0:
+                        prior = smoves
+        print(prior)
+        if len(prior) == 0:
+            move(random.choice(possibility))
+        else:
+            move(int(''.join(str(a) for a in prior)))
+
+    elif round == 'black':
+        for i in black:
+            notation[0] = i[1]
+            notation[1] = i[2]
+            state = i[3]     #state shows which type of piece is moving
+            mpiece = i[0]    #mpiece shows which chess is moving
+            if state == 'wp':            #RULES  ADD HERE
+                bpawnrule()
+            if state == 'r':
+                rrule()
+            if state == 'q':
+                qrule()
+            if state == 'b':
+                brule()
+            if state == 'n':
+                nrule()
+            if state == 'k':
+                krule()
+            for l in possibility:
+                if l/100 == l - l / 100 * 100:
+                    possibility.remove(l)
+        prior = []
+        current_score = 0
+        for moves in possibility:
+            smoves = [int(a) for a in str(moves)]
+            if po(smoves[2],smoves[3],0) in strwhite:
+                if current_score < Score(po(smoves[2],smoves[3],3)):
+                    current_score = Score(po(smoves[2],smoves[3],3))
+                    prior = smoves
+                elif current_score == Score(po(smoves[2],smoves[3],3)):
+                    choice = random.randint(0,1)
+                    if choice == 1:
+                        prior = smoves
+        if len(prior) == 0:
+            move(random.choice(possibility))
+        else:
+            move(int(''.join(str(a) for a in prior)))
+
+
+
+
 
 def test():     #this is a test base
-    move(1214)
-    move(1715)
-    move(1113)
-    move(1816)
-    move(1353)
-    move(1646)
-    move(5357)
-    move(4642)
-    move(5758)
-
-    
+    global rwr
+    rwr = ['rwr',1,6,'r']
+    fresh()
+    while 1:
+        raw_input('Press any key to continue')
+        AI()
 #while fin == False:
     
         
