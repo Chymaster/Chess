@@ -32,3 +32,9 @@ The programme is aiming to develop a full functioning program which allows Playe
 - UPDATE 10-4-2017:     Added list 'record', that record every movement made my 'move(4digit movement)', it's executable by execrecord[?]
 - UPDATE 11-4-2017：    Chess playing program is tested briefly proving it works, now aiming for AI playing chess.
 - UPDATE 21-4-2017:     Now there is AI can be used to play with,but only low level AI, no overlooking for future moves.
+
+
+
+#Bibliography
+ - http://chessprogramming.wikispaces.com/General+Setwise+Operations 
+ 
