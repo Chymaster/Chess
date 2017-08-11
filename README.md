@@ -38,4 +38,5 @@ The programme is aiming to develop a full functioning program which allows Playe
 #Bibliography
  - http://chessprogramming.wikispaces.com/General+Setwise+Operations 
  - https://github.com/niklasf/python-chess/blob/master/chess/__init__.py
+ - https://docs.python.org/2/howto/unicode.html
  
