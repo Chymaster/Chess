@@ -40,3 +40,4 @@ The programme is aiming to develop a full functioning program which allows Playe
  - https://github.com/niklasf/python-chess/blob/master/chess/__init__.py
  - https://docs.python.org/2/howto/unicode.html
  - https://chessprogramming.wikispaces.com/Board+Representation
+ - http://www.stmintz.com/ccc/index.php?id=70162 (Represent board by an array, value represent pieces)
