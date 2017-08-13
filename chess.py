@@ -7,5 +7,5 @@ while x <= 7:
     print(cb[x])
 
 def wpmove:    #white pawn possible moves
-    psbwp = 0
+    psbwp = 0               #Color of chess can't be spotified
     if 
