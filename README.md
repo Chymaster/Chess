@@ -1,6 +1,9 @@
 # Chess
 Chess program for EPQ
 The programme is aiming to develop a full functioning program which allows Player V Player and Player V AI
+# Type of board representation
+- The first edition was represented by a 8*8 array
+- The second edition was represented in piece list
 ## Features
 - Every piece in chess is assigned a variable name of it's name, for example, black side pawn 1 would be named as 'bp1' etc
 - The variable for each piece is a list contains 4 element, which are [piece name(string) , position on x axis(intiger) , position on y axis(intiger) , chess type (intiger)]
@@ -41,6 +44,8 @@ Also overlapping moves will not call an error so a function of avoiding overlapp
 
 
 #Bibliography
+ - https://chessprogramming.wikispaces.com/Piece-Lists (Idea of defining every chess on the board as arrays, and occupies them)
+    -Piece-Lists are lists or arrays of all up to 32 pieces (including pawns and king) on the board. Likely, type and color of pieces are associated by a certain index range or disjoint lists or arrays. Each element of the list or array for each particular piece associates the square occupied by this piece. 
  - http://chessprogramming.wikispaces.com/General+Setwise+Operations 
  - https://github.com/niklasf/python-chess/blob/master/chess/__init__.py
  - https://docs.python.org/2/howto/unicode.html
