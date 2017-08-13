@@ -2,11 +2,15 @@
 Chess program for EPQ
 The programme is aiming to develop a full functioning program which allows Player V Player and Player V AI
 ## Features
-- Every piece in chess is assigned a variable name of it'sname, for example, black side pawn 1 would be named as 'bp1' etc
+- Every piece in chess is assigned a variable name of it's name, for example, black side pawn 1 would be named as 'bp1' etc
 - The variable for each piece is a list contains 4 element, which are [piece name(string) , position on x axis(intiger) , position on y axis(intiger) , chess type (intiger)]
+    - Willing to change to 5 elements which the 5th element will be the unicode chess thimble.(Not acchieved yet)
 - Piece name is used to define every piece's identity, and trace where it is on the chessboard
 - position on x axis and y axis is used to locate it's location on the chessboard. Every Position's state can be found bby function po(x,y,s), x and y are coordinates, and s is the type: 0 for name, 1 for x axis, 2 for y axis, and 3 for type of piece.
 - Rules are written in functions, when input intendent to move a piece, program will select which rule to apply due to which type of piece it is.
+- The chessboard doesn't quite exist, where every chess manage it's own position. This is easier to achieve when representing the pieces, but harder to make moves  because every piece is independent, where if the move to be made, a skan to all pieces is required.
+Also overlapping moves will not call an error so a function of avoiding overlapping is required.
+
 
 
 ## Functions
@@ -41,3 +45,8 @@ The programme is aiming to develop a full functioning program which allows Playe
  - https://docs.python.org/2/howto/unicode.html
  - https://chessprogramming.wikispaces.com/Board+Representation
  - http://www.stmintz.com/ccc/index.php?id=70162 (Represent board by an array, value represent pieces)
+ - http://www.stmintz.com/ccc/index.php?id=70116 (Used array of (10*10))
+     -could be another way of representing board. Firstly tried, but failed.
+ - http://www.stmintz.com/ccc/index.php?id=70235 (Using the idea of directions instead of pure number adddings and minusing)
+     - if directions can be used, it can save a lot of code by classifing each moves, and won't have to write them every time.
+ 
