@@ -10,6 +10,7 @@ The programme is aiming to develop a full functioning program which allows Playe
 - Rules are written in functions, when input intendent to move a piece, program will select which rule to apply due to which type of piece it is.
 - The chessboard doesn't quite exist, where every chess manage it's own position. This is easier to achieve when representing the pieces, but harder to make moves  because every piece is independent, where if the move to be made, a skan to all pieces is required.
 Also overlapping moves will not call an error so a function of avoiding overlapping is required.
+ - Moves made are represented by a 4 digit number, where the first two digits are the notation where they are from, and the last two are where they are to go. The move function will generate all possibilities of moving piece, and store it in a list named "possibles", and the move that player is willing to go is checked if the move is in the list "possibilities", and if in, it's a legal omve, but if isn't, it's illigal and player will be asked to re-check their move.
 
 
 
