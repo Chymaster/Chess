@@ -29,7 +29,7 @@ Also overlapping moves will not call an error so a function of avoiding overlapp
 - Is it possible like all rules are layed out, that a knight's rule ca be componded into a function, and at every possibility, it calls that function to check if it's a legal move, because every checing is homogenised.
 
 ## Current progress
-- The program has been built up to queen's rule, 
+- （Finished)The program has been built up to queen's rule, 
 - (ALL FINISHED)there is black pawn's rule, knight's rule and king's rule to be finished. 
 - Takeover piece has been developed, but the piece that has been eaten is only change it's variable to [None,0,0,None], it still have position of (0,0), it is reasonable to fear it might interupt with rules and causing unexpected problem. 
 - Round swaping and check mating is awaited to be done as well.
